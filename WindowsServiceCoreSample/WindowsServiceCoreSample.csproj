@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>WindowsServiceCoreSample</RootNamespace>
+    <AssemblyName>WindowsServiceCoreSample</AssemblyName>
+    <UserSecretsId>dotnet-WindowsServiceCoreSample-13F2C466-4821-4AEA-998B-5BF34ED88541</UserSecretsId>
+    <ApplicationIcon>Service.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging.TraceSource" Version="3.1.3" />
+    <PackageReference Include="System.Management" Version="4.7.0" />
+  </ItemGroup>
+</Project>
