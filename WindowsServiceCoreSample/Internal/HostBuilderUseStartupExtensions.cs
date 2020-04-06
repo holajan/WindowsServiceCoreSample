@@ -108,7 +108,9 @@ namespace Microsoft.Extensions.Hosting
                 object startup = ActivatorUtilities.CreateInstance(new HostServiceProvider(hostContext), startupType);  //Startup(hostContext.Configuration, hostingEnvironment)
 
                 //Run Startup.ConfigureServices(services)
-                var configureServicesMethodInfo = startupType.GetMethod("ConfigureServices", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+                var configureServicesMethodInfo = startupType.GetMethod("ConfigureServices", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static, null,
+                        new Type[1] { typeof(IServiceCollection) }, Array.Empty<ParameterModifier>());
+
                 if (configureServicesMethodInfo == null)
                 {
                     throw new InvalidOperationException($"Public method ConfigureServices was not found in class {startupType}.");
@@ -122,7 +124,9 @@ namespace Microsoft.Extensions.Hosting
                     options.Configure = (serviceProvider) =>  //Called by StartupConfigureHostedService after IHost.Run()
                     {
                         //Run Startup.Configure(serviceProvider)
-                        var configureMethodInfo = startupType.GetMethod("Configure", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+                        var configureMethodInfo = startupType.GetMethod("Configure", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static, null,
+                            new Type[1] { typeof(IServiceProvider) }, Array.Empty<ParameterModifier>());
+
                         if (configureMethodInfo == null)
                         {
                             throw new InvalidOperationException($"Public method Configure was not found in class {startupType}.");
