@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.Hosting
                 }
             }
 
-            logger.LogCritical(eventId, message, exception);
+            logger.LogCritical(eventId, exception, message);
         }
     }
 }
