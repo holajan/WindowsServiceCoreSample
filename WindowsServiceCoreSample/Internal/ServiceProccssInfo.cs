@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace WindowsServiceCoreSample.Internal
 {
+#pragma warning disable CA1416 // Validate platform compatibility
     internal static class ServiceProccssInfo
     {
         #region member types declarations
@@ -48,6 +49,7 @@ namespace WindowsServiceCoreSample.Internal
         #region action methods
         public static System.ServiceProcess.ServiceController GetServiceByProcessId(int serviceProcessId)
         {
+
             var services = System.ServiceProcess.ServiceController.GetServices();
 
             foreach (var service in services)
@@ -109,4 +111,5 @@ namespace WindowsServiceCoreSample.Internal
         }
         #endregion
     }
+#pragma warning restore CA1416 // Validate platform compatibility
 }

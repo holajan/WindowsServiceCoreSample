@@ -69,7 +69,9 @@ namespace WindowsServiceCoreSample
             //Make sure you do not attempt this before service Run() is called.
             int processId = Environment.ProcessId;
 
+#pragma warning disable CA1416 // Validate platform compatibility
             return ServiceProccssInfo.GetServiceByProcessId(processId)?.DisplayName ?? $"{System.Diagnostics.Process.GetCurrentProcess().ProcessName} ({processId})";
+#pragma warning restore CA1416 // Validate platform compatibility
         }
     }
 }
