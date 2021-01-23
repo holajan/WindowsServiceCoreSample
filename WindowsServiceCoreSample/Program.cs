@@ -62,7 +62,7 @@ namespace WindowsServiceCoreSample
 
                     loggingBuilder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
 
-                    loggingBuilder.AddConsole(c =>
+                    loggingBuilder.AddSimpleConsole(c =>
                     {
                         c.TimestampFormat = "[yyyy-MM-dd HH:mm:ss.fff zzz] ";
                     });
