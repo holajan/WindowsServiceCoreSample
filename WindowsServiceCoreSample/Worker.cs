@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.WindowsServices;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using WindowsServiceCoreSample.Internal;
 
 namespace WindowsServiceCoreSample
 {
@@ -66,20 +67,9 @@ namespace WindowsServiceCoreSample
             }
 
             //Make sure you do not attempt this before service Run() is called.
-            int processId = System.Diagnostics.Process.GetCurrentProcess().Id;
+            int processId = Environment.ProcessId;
 
-            var searcher = new System.Management.ManagementObjectSearcher("SELECT * FROM Win32_Service where ProcessId = " + processId);
-            var collection = searcher.Get();
-
-            var managementBaseObject = collection.Cast<System.Management.ManagementBaseObject>().FirstOrDefault();
-
-            string serviceName = (string)managementBaseObject?["DisplayName"];
-            if (string.IsNullOrWhiteSpace(serviceName))
-            {
-                serviceName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
-            }
-
-            return serviceName;
+            return ServiceProccssInfo.GetServiceByProcessId(processId)?.DisplayName ?? $"{System.Diagnostics.Process.GetCurrentProcess().ProcessName} ({processId})";
         }
     }
 }
