@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -65,9 +64,13 @@ namespace WindowsServiceCoreSample
                     loggingBuilder.AddSimpleConsole(c =>
                     {
                         c.TimestampFormat = "[yyyy-MM-dd HH:mm:ss.fff zzz] ";
+                        c.IncludeScopes = true;
                     });
                     loggingBuilder.AddEventSourceLogger();
-                    loggingBuilder.AddTraceSource();    //Add custom WindowsServiceCoreSample.Logging.TraceSourceLogger
+                    loggingBuilder.AddTraceSource(c =>
+                    {
+                        c.IncludeScopes = true;
+                    }); //WindowsServiceCoreSample.Logging.TraceSourceLogger
                 })
                 .UseDefaultServiceProvider(delegate (HostBuilderContext context, ServiceProviderOptions options)
                 {
